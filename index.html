@@ -408,125 +408,6 @@
       font-size: 0.78rem;
       font-weight: 500;
     }
-
-    /* ── YAZILAR ── */
-    .yazilar-bg {
-      background: var(--white);
-    }
-
-    .yazilar-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2.2rem;
-      justify-content: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .yazilar-card {
-      background: var(--cream);
-      border: 1px solid rgba(61, 158, 122, 0.12);
-      border-radius: 20px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-      opacity: 0;
-      transform: translateY(20px);
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .yazilar-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .yazilar-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 35px rgba(61, 158, 122, 0.12);
-      border-color: var(--su-light);
-    }
-
-    .yazilar-img-wrap {
-      width: 100%;
-      height: 220px;
-      overflow: hidden;
-      position: relative;
-      background: var(--su-pale);
-    }
-
-    .yazilar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-
-    .yazilar-card:hover .yazilar-img {
-      transform: scale(1.05);
-    }
-
-    .yazilar-content {
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .yazilar-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .yazilar-tag {
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 0.25rem 0.75rem;
-      background: var(--su-pale);
-      color: var(--su-dark);
-      border-radius: 50px;
-    }
-
-    .yazilar-date {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .yazilar-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--su-deeper);
-      margin-bottom: 0.8rem;
-      line-height: 1.3;
-    }
-
-    .yazilar-desc {
-      font-size: 0.92rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      flex: 1;
-    }
-
-    .yazilar-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--su);
-      transition: color 0.25s;
-    }
-
-    .yazilar-card:hover .yazilar-link {
-      color: var(--su-dark);
-    }
-
     /* ── TRAININGS ── */
     .trainings-bg {
       background: var(--su-deeper);
@@ -659,7 +540,6 @@
       <li><a href="#deneyim">Deneyim</a></li>
       <li><a href="#egitim">Eğitim</a></li>
       <li><a href="#egitimler">Eğitimler</a></li>
-      <li><a href="#yazilar">Yazılar</a></li>
       <li><a href="yapay-zeka.html" class="nav-ai-btn">Yapay Zeka</a></li>
       <li><a href="ehlikalem/index.html" class="nav-ai-btn">Ehl-i Kalem</a></li>
     </ul>
@@ -678,7 +558,6 @@
         </p>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
           <a href="#deneyim" class="hero-cta">Deneyimlerimi Keşfet</a>
-          <a href="#yazilar" class="hero-cta hero-cta-secondary">Yazılar</a>
           <a href="yapay-zeka.html" class="hero-cta hero-cta-secondary">Yapay Zeka Araçları</a>
           <a href="ehlikalem/index.html" class="hero-cta hero-cta-secondary">Ehl-i Kalem</a>
         </div>
@@ -756,37 +635,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ARTICLES (YAZILAR) -->
-  <section id="yazilar" class="yazilar-bg">
-    <div class="section-inner">
-      <p class="section-label">Yazılar ve Araştırmalar</p>
-      <h2 class="section-heading">Son Makaleler</h2>
-      <div class="yazilar-grid">
-
-        <!-- CARD: PHINEAS GAGE -->
-        <a href="makale/phineas-gage.html" class="yazilar-card">
-          <div class="yazilar-img-wrap">
-            <img src="makale/phineas-gage.png" alt="Phineas Gage Vakası" class="yazilar-img"
-              onerror="this.style.background='linear-gradient(135deg,#3d9e7a,#1e5c47)';this.removeAttribute('src')" />
-          </div>
-          <div class="yazilar-content">
-            <div class="yazilar-meta">
-              <span class="yazilar-tag">Nöropsikoloji</span>
-              <span class="yazilar-date">13 Haziran 2026</span>
-            </div>
-            <h3 class="yazilar-title">Demir Çubuğun Gölgesinde: Phineas Gage Vakası</h3>
-            <p class="yazilar-desc">
-              1848'de kafasından geçen demir çubukla hayatta kalan Phineas Gage'in hikayesi, kişiliğin beyindeki biyolojik temellerini ortaya koyarak modern sinirbilimi nasıl başlattı?
-            </p>
-            <span class="yazilar-link">Devamını Oku →</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
   <!-- TRAININGS -->
   <section id="egitimler" class="trainings-bg">
     <div class="section-inner">
