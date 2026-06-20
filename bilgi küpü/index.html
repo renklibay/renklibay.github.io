@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phineas Gage Vakası - Bilgi Küpü</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --su: #3d9e7a;
+      --su-light: #6bbfa0;
+      --su-pale: #d4f0e6;
+      --su-dark: #1e5c47;
+      --su-deeper: #0d3329;
+      --cream: #f5f9f7;
+      --white: #ffffff;
+      --text: #1a2e27;
+      --text-muted: #5a7a70;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --dark-bg: #0f201b;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Background Gradients */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--su-pale) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(61, 158, 122, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(245, 249, 247, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(61, 158, 122, 0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--su-dark);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .nav-back-btn {
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--su);
+      border: 1px solid var(--su-light);
+      padding: 0.5rem 1.3rem;
+      border-radius: 50px;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-back-btn:hover {
+      background: var(--su);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    .story-header {
+      margin-bottom: 3.5rem;
+      text-align: center;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .story-category {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--su);
+      margin-bottom: 0.8rem;
+    }
+
+    .story-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--su-deeper);
+      line-height: 1.2;
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .story-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .story-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* GRID LAYOUT */
+    .story-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* TEXT CONTENT */
+    .story-content {
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .story-content p {
+      font-size: 1.08rem;
+      color: var(--text);
+      margin-bottom: 1.6rem;
+      text-align: justify;
+    }
+
+    .story-content p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      float: left;
+      line-height: 0.8;
+      margin-right: 0.75rem;
+      margin-top: 0.2rem;
+      color: var(--su-dark);
+    }
+
+    /* QUOTE STYLING */
+    blockquote {
+      border-left: 4px solid var(--su);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      background: rgba(61, 158, 122, 0.05);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--su-dark);
+    }
+
+    /* MEDIA SIDEBAR */
+    .media-sidebar {
+      position: sticky;
+      top: 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      align-items: center;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .media-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(61, 158, 122, 0.15);
+      border-radius: 20px;
+      padding: 1.25rem;
+      box-shadow: 0 15px 35px rgba(30, 92, 71, 0.08);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px rgba(30, 92, 71, 0.15);
+    }
+
+    .media-wrapper {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #eaeaea;
+    }
+
+    .media-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .media-card.gif-card {
+      width: 75%; /* Smaller size as requested */
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(30, 92, 71, 0.06);
+    }
+
+    .media-caption {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .gif-card .media-caption {
+      font-size: 0.8rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--su-deeper);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 2.5rem 3rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.82rem;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span {
+      color: var(--su-light);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .container {
+        padding: 7rem 1.5rem 3rem;
+      }
+
+      .story-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .media-sidebar {
+        position: static;
+      }
+
+      .media-card.gif-card {
+        width: 100%; /* Take full width on small screens but styled gracefully */
+        max-width: 320px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Ayşe Renklibay</a>
+    <a href="../index.html" class="nav-back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Geri Dön
+    </a>
+  </nav>
+
+  <!-- CONTENT CONTAINER -->
+  <main class="container">
+    <!-- STORY HEADER -->
+    <header class="story-header">
+      <p class="story-category">Bilgi Küpü — Vaka İncelemesi</p>
+      <h1 class="story-title">Demir Çubuğun Gölgesinde: Phineas Gage Vakası</h1>
+      <div class="story-meta">
+        <span>📅 13 Eylül 1848</span>
+        <span>📍 Cavendish, Vermont</span>
+        <span>🧠 Nöroloji Tarihi</span>
+      </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="story-layout">
+      <!-- STORY CONTENT -->
+      <article class="story-content">
+        <p>
+          13 Eylül 1848... Vermont’un Cavendish kasabasında, demiryolu inşaatında sıradan bir iş günüydü. 
+          25 yaşındaki Phineas Gage, ekibinin en güvenilir, disiplinli ve saygın ustabaşıydı. İşindeki becerisi 
+          ve güçlü karakteri onu vazgeçilmez kılıyordu. O gün de her zaman yaptığı rutini tekrarlıyordu: 
+          Kayaya delik aç, barutu doldur, kumla kapat ve demir çubukla sıkıştır. Ancak bir anlık dikkat dağınıklığı, 
+          birinin ona seslenmesi ve başını çevirmesiyle zaman kırıldı.
+        </p>
+
+        <p>
+          Kumla kapatılmamış barut, demir çubuğun sürtünmesiyle aniden ateşlendi. Altı kilogram ağırlığındaki, 
+          bir metre uzunluğundaki devasa demir çubuk, bir mermi gibi fırlayarak Gage’in sol yanağından girdi, 
+          kafatasını deldi, beyninin ön lobunu parçalayarak gökyüzüne yükseldi. Çubuk, otuz metre ötede "kana ve 
+          beyne bulanmış" hâlde bulunduğunda, Gage yere yığımıstı. Fakat tıp tarihini kökünden değiştirecek olan 
+          mucize tam o an başladı: Gage ölmemişti. Birkaç dakika içinde konuşmaya başladı, kendi başına yürüdü ve 
+          bir at arabasında dik oturarak 1.25 kilometre uzaklıktaki dairesine götürüldü.
+        </p>
+
+        <p>
+          Fiziksel olarak hayatta kalması mucizeydi, evet; ancak asıl sarsıcı gerçek, yaraları kapandığında ortaya çıktı. 
+          Gage hayattaydı ama artık kendisi değildi.
+        </p>
+
+        <p>
+          Kazadan önce "gözü açık, zeki, işçileri tarafından sevilen ve sosyal normlara bağlı" bir adam olan Gage; 
+          kazadan sonra sabırsız, saygısız, küfürbaz ve dengesiz birine dönüştü. Geleceğe dair planlar yapıyor, 
+          bir saniye sonra vazgeçiyordu. Arkadaşları şaşkınlık ve üzüntüyle aynı cümleyi fısıldıyordu:
+        </p>
+
+        <blockquote>
+          “O artık Gage değil.”
+        </blockquote>
+
+        <p>
+          İşverenleri, bu hırçın ve güvenilmez adamı eski görevine geri alamadı.
+        </p>
+
+        <p>
+          Altı kilogramlık demir çubuk, Gage’in beynine adeta ilkel ve acımasız bir lobotomi uygulamıştı. Kazadan sonra 
+          hafızası, dili ve genel zekâsı yerindeydi; ancak onu "insan" yapan, toplum içinde var eden o görünmez bağ kopmuştu. 
+          Frontal lobundaki hasar; empatiyi, dürtü kontrolünü ve sonuçları öngörme yeteneğini yok etmişti.
+        </p>
+
+        <p>
+          Bu vaka, bilim dünyasında bir dönüm noktası oldu. O güne kadar soyut bir düzlemde tartışılan "ruh, zihin ve beyin" 
+          ilişkisi, ilk kez somut bir yara izinde, bir demir çubuğun açtığı boşlukta anlam buldu. Frontal korteks ile kişilik 
+          arasındaki bağ bilimsel olarak ilk kez bu kadar net belgelendi. Beynin küçük bir bölgesindeki hasarın bile insanın 
+          kimliğini kökten değiştirebileceği gerçeği, modern nöroloji ve psikolojinin temel taşı haline geldi.
+        </p>
+
+        <p>
+          Gage, kazadan 12 yıl sonra, 1860 yılında epilepsi nöbetleri sebebiyle hayatını kaybetti. Bugün onun delik kafası ve 
+          hayatını altüst eden o ünlü demir çubuğu, Harvard Tıp Okulu’nda yan yana sergileniyor. Onlar artık sadece tıbbi birer 
+          nesne değil; insan zihninin ne kadar gizemli, kişiliğin ise ne kadar kırılgan ve pamuk ipliğine bağlı olduğuna dair 
+          zamansız ve sessiz birer anıttır.
+        </p>
+
+        <p>
+          Phineas Gage’in hikâyesi, insan beyninin kırılganlığını ve kişiliğin nasıl şekillendiğini anlamamızda bir dönüm noktasıdır. 
+          1848’de yaşadığı kaza, yalnızca bir demir çubuğun kafasını delip beyninin ön lobunu parçalamasıyla sınırlı kalmamış, 
+          aynı zamanda insan davranışlarının ve bilincinin biyolojik temellerini aydınlatan en önemli vakalardan biri olarak 
+          tarihe geçmiştir.
+        </p>
+      </article>
+
+      <!-- MEDIA SIDEBAR -->
+      <aside class="media-sidebar">
+        <!-- Main Portrait Image -->
+        <div class="media-card">
+          <div class="media-wrapper">
+            <img src="Phineasgage.jpg" onerror="this.src='../Phineasgage.jpg'" alt="Phineas Gage Portrait" class="media-image" />
+          </div>
+          <div class="media-caption">
+            <strong>Phineas Gage</strong><br>
+            Sol gözünden girip kafatasını delip geçen ünlü demir çubuğu tutarken çekilen dagerreyotipi portresi.
+          </div>
+        </div>
+
+        <!-- Smaller GIF Image -->
+        <div class="media-card gif-card">
+          <div class="media-wrapper">
+            <img src="Phineasgage2.gif" onerror="this.src='../Phineasgage2.gif'" alt="Phineas Gage Skull Reconstruction" class="media-image" />
+          </div>
+          <div class="media-caption">
+            <strong>3B Rekonstrüksiyon</strong><br>
+            Demir çubuğun frontal lobdan geçiş yolunu gösteren bilgisayar destekli modelleme.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <span>Ayşe Renklibay</span> — Tüm hakları saklıdır.</p>
+  </footer>
+
+</body>
+
+</html>
