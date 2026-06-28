@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanat Zehirlenmesi: Floransa Sendromu - Bilgi Küpü</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --su: #3d9e7a;
+      --su-light: #6bbfa0;
+      --su-pale: #d4f0e6;
+      --su-dark: #1e5c47;
+      --su-deeper: #0d3329;
+      --cream: #f5f9f7;
+      --white: #ffffff;
+      --text: #1a2e27;
+      --text-muted: #5a7a70;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --dark-bg: #0f201b;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Background Gradients */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--su-pale) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(61, 158, 122, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(245, 249, 247, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(61, 158, 122, 0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--su-dark);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .nav-back-btn {
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--su);
+      border: 1px solid var(--su-light);
+      padding: 0.5rem 1.3rem;
+      border-radius: 50px;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-back-btn:hover {
+      background: var(--su);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    .story-header {
+      margin-bottom: 3.5rem;
+      text-align: center;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .story-category {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--su);
+      margin-bottom: 0.8rem;
+    }
+
+    .story-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--su-deeper);
+      line-height: 1.2;
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .story-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .story-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* GRID LAYOUT */
+    .story-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* TEXT CONTENT */
+    .story-content {
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .story-content p {
+      font-size: 1.08rem;
+      color: var(--text);
+      margin-bottom: 1.6rem;
+      text-align: justify;
+    }
+
+    .story-content p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      float: left;
+      line-height: 0.8;
+      margin-right: 0.75rem;
+      margin-top: 0.2rem;
+      color: var(--su-dark);
+    }
+
+    /* QUOTE STYLING */
+    blockquote {
+      border-left: 4px solid var(--su);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      background: rgba(61, 158, 122, 0.05);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--su-dark);
+    }
+
+    /* MEDIA SIDEBAR */
+    .media-sidebar {
+      position: sticky;
+      top: 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      align-items: center;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .media-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(61, 158, 122, 0.15);
+      border-radius: 20px;
+      padding: 1.25rem;
+      box-shadow: 0 15px 35px rgba(30, 92, 71, 0.08);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px rgba(30, 92, 71, 0.15);
+    }
+
+    .media-wrapper {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #eaeaea;
+    }
+
+    .media-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .media-card.secondary-card {
+      width: 85%;
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(30, 92, 71, 0.06);
+    }
+
+    .media-caption {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .secondary-card .media-caption {
+      font-size: 0.8rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--su-deeper);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 2.5rem 3rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.82rem;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span {
+      color: var(--su-light);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .container {
+        padding: 7rem 1.5rem 3rem;
+      }
+
+      .story-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .media-sidebar {
+        position: static;
+      }
+
+      .media-card.secondary-card {
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Ayşe Renklibay</a>
+    <a href="index.html" class="nav-back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Geri Dön
+    </a>
+  </nav>
+
+  <!-- CONTENT CONTAINER -->
+  <main class="container">
+    <!-- STORY HEADER -->
+    <header class="story-header">
+      <p class="story-category">Bilgi Küpü — Vaka İncelemesi</p>
+      <h1 class="story-title">Sanat Zehirlenmesi: Floransa Sendromu</h1>
+      <div class="story-meta">
+        <span>📅 1817 - 1979</span>
+        <span>📍 Floransa, İtalya</span>
+        <span>🧠 Psikoloji &amp; Sanat</span>
+      </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="story-layout">
+      <!-- STORY CONTENT -->
+      <article class="story-content">
+        <p>
+          Floransa Sendromu, Stendhal Sendromu ya da tıptaki adıyla "Hiperkültüremi"; kişinin bir sanat eseri karşısında aşırı derecede etkilenmesiyle ortaya çıkan bir tablodur. Bu sendrom; kalp çarpıntısı, baş dönmesi, mide bulantısı, nefes darlığı ve yoğun duygusal taşkınlık gibi belirtilerle kendini gösteriyor. Sendromun ortaya çıkışı, ünlü Fransız yazar Stendhal’in 1817 yılında Floransa ziyaretine kadar uzanıyor.
+        </p>
+
+        <p>
+          Takvimler 1817 yılını gösterirken Fransız yazar <strong>Stendhal</strong>, İtalya'nın Floransa kentindeki Santa Croce Bazilikası'nı ziyaret ediyordu. Giotto'nun büyüleyici freskleriyle karşılaştığı o an, hissettiklerini daha sonra şu sözlerle dile getirecekti:
+        </p>
+
+        <blockquote>
+          “Floransa'da bulunmaktan, o harika insanların eserlerini yakından görmekten dolayı adeta büyülenmiştim... Santa Croce'den çıkarken kalbim hızla çarpıyordu, hayat pınarlarım kurumuş gibiydi ve düşüp bayılmaktan korkarak yürüyordum.”
+        </blockquote>
+
+        <p>
+          Yazarın yaşadığı bu deneyim sıra dışı bir anı olarak görülse de, yıllar sonra (1979'da) İtalyan psikiyatr <strong>Graziella Magherini</strong>'nin Floransa'da benzer belirtiler gösteren yüzden fazla turisti gözlemlemesiyle tıp literatüründeki yerini aldı ve bu sendroma adını verdi.
+        </p>
+
+        <p>
+          Stendhal Sendromu sadece bir "beğeni" duygusu değil; beynin ve vücudun yoğun estetik uyaranlar karşısında verdiği psikosomatik (ruhsalden bedene yansıyan) bir tepkidir. Uzmanlara göre bunun temelinde beynin estetik karşısında verdiği yoğun duygusal tepki yatıyor. Özellikle sanata karşı hassas, empati düzeyi yüksek ve duygusal olarak derin deneyimler yaşamaya yatkın kişilerde, etkileyici eserler adeta bir duygu patlaması yaratabiliyor.
+        </p>
+
+        <p>
+          Bazen bir resimdeki figür geçmişten unutulmuş bir anıyı canlandırıyor, bazen de kişinin bilinçaltında bastırdığı duygular gün yüzüne çıkıyor. Resmî bir psikiyatrik hastalık olarak kabul edilmeyen Stendhal Sendromu, yaşanan belirtileriyle oldukça gerçek. Bu nedenle kişinin dinlenmesi, bulunduğu ortamdan uzaklaşması ve gerekirse psikolojik destek alması öneriliyor.
+        </p>
+
+        <p>
+          Stendhal Sendromu, sanatın yalnızca gözle görülen bir olgu olmadığını; bazen bir tablonun, heykelin ya da freskin insanın zihnine, kalbine ve hatta bedenine dokunabilecek kadar güçlü olabileceğini gösteriyor.
+        </p>
+      </article>
+
+      <!-- MEDIA SIDEBAR -->
+      <aside class="media-sidebar">
+        <!-- Main Portrait Image -->
+        <div class="media-card">
+          <div class="media-wrapper">
+            <img src="Stendhal.jpg" onerror="this.src='../Stendhal.jpg'" alt="Stendhal Portrait" class="media-image" />
+          </div>
+          <div class="media-caption">
+            <strong>Marie-Henri Beyle (Stendhal)</strong><br>
+            Floransa Sendromu'na adını veren ve 1817'deki seyahatinde bu yoğun estetik şoku bizzat yaşayan ünlü Fransız yazar.
+          </div>
+        </div>
+
+        <!-- Secondary Basilica Image -->
+        <div class="media-card secondary-card">
+          <div class="media-wrapper">
+            <img src="santacroce.png" onerror="this.src='../santacroce.png'" alt="Santa Croce Basilica Interior" class="media-image" />
+          </div>
+          <div class="media-caption">
+            <strong>Santa Croce Bazilikası</strong><br>
+            Stendhal'in Floransa'da Giotto'nun muazzam freskleriyle karşılaşarak sendromun ilk belirtilerini gösterdiği tarihi kilise.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <span>Ayşe Renklibay</span> — Tüm hakları saklıdır.</p>
+  </footer>
+
+</body>
+
+</html>
