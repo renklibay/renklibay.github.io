@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ders Denetim Defteri</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f8f6f3;--card:#fff;--ink:#1c2a2f;--mute:#5b6b71;--line:#d7dfdf;--acc:#4a8f94;--acc-t:#fff;--yes:#2b7a4b;--no:#b3432d;--warn:#b7791f;--soft:#e8efee}
+:root:not([data-theme=light]){}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#121b1e;--card:#1b272b;--ink:#e6eeee;--mute:#9bacb1;--line:#2e3e43;--acc:#4fb3b9;--acc-t:#0d1a1c;--yes:#58c07f;--no:#ef8a72;--warn:#e0a94a;--soft:#243338}}
+:root[data-theme=dark]{--bg:#121b1e;--card:#1b272b;--ink:#e6eeee;--mute:#9bacb1;--line:#2e3e43;--acc:#4fb3b9;--acc-t:#0d1a1c;--yes:#58c07f;--no:#ef8a72;--warn:#e0a94a;--soft:#243338}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:0}h2{font-size:1rem;margin:22px 0 8px;color:var(--mute);font-weight:600}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.btn.p{background:var(--acc);color:var(--acc-t);border-color:var(--acc);font-weight:600}
+.btn.d{color:var(--no)}
+input,select,textarea{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 9px;max-width:100%}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:16px 0 4px;padding-bottom:4px}
+.tab{white-space:nowrap;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px}
+.tab small{color:var(--mute);margin-left:4px}
+.tab[aria-selected=true]{background:var(--acc);color:var(--acc-t);border-color:var(--acc)}
+.tab[aria-selected=true] small{color:inherit}
+.sum{color:var(--mute);margin:6px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:10px;padding:12px}
+.card.part{border-left-color:var(--warn)}.card.full{border-left-color:var(--yes)}
+.hd{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.nm{background:none;border:0;padding:0;font-weight:700;text-align:left;text-decoration:underline dotted;text-underline-offset:3px}
+.chip{display:inline-block;background:var(--soft);border-radius:6px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-top:2px}
+.x{background:none;border:0;color:var(--mute);font-size:1.1rem;line-height:1;padding:2px 6px}
+.tm{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.tm label{font-size:.85rem;color:var(--mute);display:flex;flex-direction:column;gap:2px}
+.q{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 0;border-top:1px solid var(--line);font-size:.93rem}
+.seg{display:flex}
+.seg button{border:1px solid var(--line);background:var(--card);padding:3px 12px;font-size:.88rem}
+.seg button:first-child{border-radius:7px 0 0 7px}.seg button:last-child{border-radius:0 7px 7px 0;border-left:0}
+.seg button[aria-pressed=true].e{background:var(--yes);color:#fff;border-color:var(--yes)}
+.seg button[aria-pressed=true].h{background:var(--no);color:#fff;border-color:var(--no)}
+textarea.nt{width:100%;min-height:64px;margin-top:8px;resize:vertical}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);width:min(640px,94vw);max-height:88vh}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.f{display:grid;gap:10px;margin:12px 0}.f label{display:grid;gap:3px;font-size:.9rem;color:var(--mute)}
+.h{border-top:1px solid var(--line);padding:10px 0}.h b{display:block}.h p{margin:4px 0 0;white-space:pre-wrap}
+.tags span{font-size:.8rem;margin-right:8px}.empty{color:var(--mute);padding:20px 0}
+.y{color:var(--yes)}.n{color:var(--no)}
+[hidden]{display:none!important}.tc{text-align:left;width:100%}.tc b{font-size:1.02rem}.q2{display:grid;gap:3px;border-top:1px solid var(--line);padding:7px 0 0;margin-top:7px;font-size:.88rem;color:var(--mute)}.q2 .nt{min-height:46px;margin-top:0;color:var(--ink)}
+.wk{margin:18px 0 6px;font-weight:600;color:var(--acc);border-bottom:2px solid var(--acc);padding-bottom:3px}.rec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}.rh{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-bottom:6px}.rh .btn{margin-left:auto;padding:3px 10px}.rh .chip{margin-top:0}.rl{display:grid;grid-template-columns:150px 1fr;gap:8px;padding:5px 0;border-top:1px solid var(--line)}.rl span{color:var(--mute);font-size:.85rem}.rl p{margin:0;white-space:pre-wrap}@media(max-width:520px){.rl{grid-template-columns:1fr;gap:0}}
+:root{--ct:#d1a24e;--cf:#6eb08a;--cl:#d98aa6;--cc:#7e9fd6}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--ct:#f0b35a;--cf:#6fcf97;--cl:#f27aaa;--cc:#8fb4f7}}
+:root[data-theme=dark]{--ct:#f0b35a;--cf:#6fcf97;--cl:#f27aaa;--cc:#8fb4f7}
+.g-t{--gc:var(--ct)}.g-f{--gc:var(--cf)}.g-l{--gc:var(--cl)}.g-c{--gc:var(--cc)}
+.chip[class*="g-"]{background:color-mix(in srgb,var(--gc) 22%,var(--card));color:color-mix(in srgb,var(--gc) 55%,var(--ink));font-weight:600}
+.card[class*="g-"],.rec[class*="g-"]{border-top:3px solid var(--gc)}
+.tc{border-top:4px solid var(--acc)}
+body{background:linear-gradient(180deg,color-mix(in srgb,var(--acc) 14%,var(--bg)),var(--bg) 360px) fixed var(--bg)}
+body::before{content:"";display:block;height:5px;opacity:.8;background:linear-gradient(90deg,var(--ct),var(--cf),var(--cl),var(--cc))}
+h1{color:var(--acc)}
+h2{display:inline-block;background:color-mix(in srgb,var(--acc) 15%,var(--card));color:var(--acc);padding:3px 14px;border-radius:999px;font-weight:700}
+.tab:not([aria-selected=true]){background:color-mix(in srgb,var(--acc) 8%,var(--card))}
+main{padding-bottom:72px}#emo{position:fixed;left:0;right:0;bottom:0;display:flex;gap:2px;overflow-x:auto;background:var(--card);border-top:1px solid var(--line);padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}#emo button{background:none;border:0;font-size:1.45rem;padding:2px 7px;border-radius:8px}#emo button:hover{background:var(--soft)}
+@media print{.top .row,.tabs,.x,.btn{display:none}}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+  <h1>Ders Denetim Defteri</h1>
+  <div class="row">
+    <button class="btn" id="bAll">Tüm notlar</button>
+    <button class="btn" id="bXl">Excel'e aktar</button>
+    <button class="btn" id="bBak">Yedek</button>
+    <button class="btn p" id="bAdd">+ Öğretmen / ders ekle</button>
+  </div>
+</div>
+<div class="row" style="margin-top:14px"><button class="tab" id="nDay" data-view="day">Günlük görünüm</button><button class="tab" id="nLst" data-view="list">Öğretmenler (ayrı sayfalar)</button></div>
+<div class="row" style="margin-top:12px">
+  <span class="row" id="dayNav"><button class="btn" id="prev" aria-label="Önceki hafta">‹ Önceki hafta</button>
+  <input type="date" id="date" aria-label="Denetim tarihi">
+  <button class="btn" id="next" aria-label="Sonraki hafta">Sonraki hafta ›</button></span>
+  <input type="search" id="q" placeholder="Öğretmen ara…" aria-label="Öğretmen ara" style="flex:1;min-width:150px">
+</div>
+<div class="tabs" id="tabs" role="tablist"></div>
+<div class="sum" id="sum"></div>
+<div id="list"></div>
+</main>
+
+<dialog id="dAdd"><form method="dialog" id="fAdd">
+  <b>Yeni ders ekle</b>
+  <div class="f">
+    <label>Öğretmen adı<input id="aN" list="names" required></label><datalist id="names"></datalist>
+    <label>Gün<select id="aD"></select></label>
+    <label>Ders saati<input type="time" id="aH" value="11:00" required></label>
+    <div class="row"><label style="flex:1">Sınıf<select id="aG1"><option>Tohum</option><option>Fidan</option><option>Filiz</option><option>Çınar</option></select></label>
+    <label style="flex:1">Seviye<select id="aG2"><option>Başlangıç</option><option>Temel</option><option>Orta</option><option>İleri</option></select></label></div>
+  </div>
+  <div class="row" style="justify-content:space-between">
+    <button type="button" class="btn d" id="aDel">Öğretmeni tamamen çıkar</button>
+    <span class="row"><button class="btn" value="x" formnovalidate>Vazgeç</button><button class="btn p" id="aOk" value="ok">Ekle</button></span>
+  </div>
+</form></dialog>
+
+<dialog id="dHis"><div class="row" style="justify-content:space-between"><b id="hT"></b><button class="btn" id="hX">Kapat</button></div><div id="hB"></div></dialog>
+
+<dialog id="dBak"><b>Yedek</b>
+  <p style="color:var(--mute);font-size:.9rem">Veriler bu tarayıcıda saklanır. Başka cihaza taşımak veya yedeklemek için metni kopyalayın; geri yüklemek için yapıştırıp “Yükle”ye basın.</p>
+  <textarea id="bT" style="width:100%;height:200px"></textarea>
+  <div class="row" style="justify-content:flex-end;margin-top:8px"><button class="btn" id="bCp">Kopyala</button><button class="btn p" id="bLd">Yükle</button><button class="btn" id="bCl">Kapat</button></div>
+</dialog>
+
+<dialog id="dXl"><b>Excel'e aktar</b>
+  <p style="color:var(--mute);font-size:.9rem">Tüm kayıtlar tek tabloda, öğretmen özeti ve ders programı ayrı sayfalarda gelir. İsterseniz tarih aralığı seçin; boş bırakırsanız tüm kayıtlar aktarılır.</p>
+  <div class="f"><label>Başlangıç tarihi<input type="date" id="xF"></label><label>Bitiş tarihi<input type="date" id="xT"></label></div>
+  <div class="row" style="justify-content:flex-end"><button class="btn" id="xC">Vazgeç</button><button class="btn p" id="xG">Excel dosyasını oluştur</button></div></dialog>
+<div id="emo" hidden aria-label="Emoji ekle"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const SEED={"L":[[2,"19:00","Abdullah BOZAT","Çınar-Başlangıç"],[2,"19:00","Benan TORĞUL","Filiz-Başlangıç"],[2,"19:00","Berna ESER GÜNEŞ","Fidan-Başlangıç"],[2,"19:00","Bilal Gümüşçü","Fidan-Orta"],[2,"19:00","Edanur DOĞAN","Tohum-Temel"],[2,"19:00","Meryem YÜCEL","Filiz-Orta"],[3,"19:00","Ayça Nur İLKYAZ TİKANKUŞ","Tohum-Temel"],[3,"19:00","Dilek BALCI SEKİN","Filiz-Temel"],[3,"19:00","Erhan SARI","Fidan-Orta"],[3,"19:00","Nur SOLAKOĞLU","Filiz-Orta"],[4,"19:00","Elif BEYDİLİ KAYA","Filiz-Temel"],[4,"19:00","Elif ERTEKİN","Çınar-Temel"],[4,"19:00","Hayrullah Dündar","Fidan-Orta"],[4,"19:00","Ezgi Fatma FIÇI","Fidan-Başlangıç"],[4,"19:00","Fatma NÜKTE","Filiz-Temel"],[4,"19:00","Güler ALP","Tohum-Temel"],[4,"19:00","Süleyman Hilmi ALACA","Filiz-Orta"],[6,"11:00","Ali Rıza ÖZTÜRK","Filiz-Temel"],[6,"11:00","Burcu ZENGİNSAN KAHRAMAN","Fidan-Başlangıç"],[6,"11:00","Çağla YALÇİN","Filiz-Orta"],[6,"11:00","Fatma FAKI","Tohum-Temel"],[6,"11:00","Leyla MEŞHUR","Tohum-Temel"],[6,"11:00","Medine ARDA","Filiz-Orta"],[6,"11:00","Ömer YİĞİT","Fidan-Orta"],[6,"11:00","Sinem ÖREN","Fidan-Temel"],[6,"13:00","Berna ÜNVER","Fidan-Orta"],[6,"13:00","Çağla YALÇİN","Filiz-Orta"],[6,"17:00","Bekir Gökhan GÖKALP","Çınar-Orta"],[6,"17:00","Çağla YALÇİN","Fidan-Orta"],[6,"17:00","Ergün GEZİCİ","Filiz-Temel"],[6,"17:00","İsmet ERK","Çınar-Başlangıç"],[6,"17:00","Mustafa ATLI","Fidan-Orta"],[6,"17:00","Nazife AYHAN","Filiz-Başlangıç"],[6,"17:00","Sevinç DEMİREL","Fidan-Başlangıç"],[6,"18:00","Ayşe KANAT","Tohum-Temel"],[6,"18:00","Berna ÜNVER","Fidan-Temel"],[6,"18:00","Çiğdem ŞAKIR","Fidan-Temel"],[6,"18:00","Derya KARASOY","Çınar-Orta"],[6,"18:00","Derya TOP","Filiz-Orta"],[6,"18:00","Hatice ÇELİK","Çınar-Başlangıç"],[6,"18:00","Işık ŞANLI","Fidan-Orta"],[6,"18:00","Nilüfer BALABAN","Filiz-Başlangıç"],[6,"18:00","Serkan NERGİZ","Filiz-Temel"],[6,"19:00","Abdulsamet YALÇINKAYA","Filiz-Temel"],[6,"19:00","Ali Rıza ÖZTÜRK","Filiz-Orta"],[6,"19:00","Bekir Gökhan GÖKALP","Fidan-Temel"],[6,"19:00","Sayhan BAHAR","Tohum-Temel"],[6,"19:00","Evren DOĞAN","Çınar-Temel"],[6,"19:00","Fatma TÜRK ARAS","Fidan-Orta"],[6,"19:00","Gülsen KAMA","Tohum-Temel"],[6,"19:00","Mehmet BİÇER","Filiz-Temel"],[6,"19:00","Metin BOZKURT","Fidan-Orta"],[6,"19:00","Mustafa ATLI","Filiz-Başlangıç"],[6,"19:00","Nazife AYHAN","Filiz-Temel"],[6,"19:00","Nurcan AKBULUT","Filiz-Orta"],[6,"19:00","Nurgül Ayşe TEZCAN KOÇER","Filiz-Orta"],[6,"19:00","Sevinç DEMİREL","Çınar-İleri"],[0,"11:00","Ayça Nur İLKYAZ TİKANKUŞ","Tohum-Temel"],[0,"11:00","Ömer KOCABIYIK","Filiz-Temel"],[0,"11:00","Pınar İNCE","Filiz-Başlangıç"],[0,"11:00","Seda SEYHAN AYDEMİR","Çınar-İleri"],[0,"11:00","Onur YAŞAR","Filiz-Başlangıç"],[0,"11:00","Süleyman AÇIKGÖZ","Fidan-Orta"],[0,"11:00","Zeynep DALCI KİRAZ","Fidan-Temel"],[0,"13:00","Elif ACAR","Filiz-Orta"],[0,"13:00","Onur YAŞAR","Çınar-İleri"],[0,"13:00","Yasemin ATA YÜREK","Filiz-Temel"],[0,"17:00","Ahmet YENİGÜN","Tohum-Temel"],[0,"17:00","Elif ACAR","Filiz-Temel"],[0,"17:00","Ergün GEZİCİ","Filiz-Başlangıç"],[0,"17:00","Mahmut Furkan ZOBA","Fidan-Orta"],[0,"17:00","Meliha KUTLU","Çınar-Temel"],[0,"17:00","Nazife AYHAN","Fidan-Temel"],[0,"17:00","Nur SOLAKOĞLU","Filiz-Temel"],[0,"17:00","Ertan YAVUZ","Fidan-Orta"],[0,"17:00","Serkan NERGİZ","Filiz-Temel"],[0,"17:00","Sevinç DEMİREL","Çınar-İleri"],[0,"18:00","Ali DURUR","Tohum-Temel"],[0,"18:00","Evren DOĞAN","Tohum-Temel"],[0,"18:00","Fadime YAŞA","Fidan-Orta"],[0,"18:00","Işık ŞANLI","Filiz-Temel"],[0,"18:00","Özlem URAL","Filiz-Orta"],[0,"18:00","Sayhan BAHAR","Filiz-Başlangıç"],[0,"18:00","Zeynep YILDIRIM","Fidan-Temel"],[0,"19:00","Asiye AKANSU","Filiz-Orta"],[0,"19:00","Aslı Uysal","Çınar-Orta"],[0,"19:00","Berna ÜNVER","Fidan-Orta"],[0,"19:00","Burcu ERKMEN","Tohum-Temel"],[0,"19:00","Elif ERTAŞ","Fidan-Başlangıç"],[0,"19:00","Ergün GEZİCİ","Fidan-Orta"],[0,"19:00","Esra DEMİRHAN EROĞLU","Tohum-Temel"],[0,"19:00","Ezgi Fatma FIÇI","Filiz-Orta"],[0,"19:00","Fatma TÜRK ARAS","Filiz-Temel"],[0,"19:00","Kadriye Nur ERASLAN","Filiz-Orta"],[0,"19:00","Makbule COŞKUN","Filiz-Başlangıç"],[0,"19:00","Meliha KUTLU","Çınar-İleri"],[0,"19:00","Merve PAKEL","Çınar-Orta"],[0,"19:00","Metin BOZKURT","Filiz-Temel"],[0,"19:00","Mustafa ATLI","Filiz-Orta"],[0,"19:00","Nurcan AKBULUT","Fidan-Temel"],[0,"19:00","Uğur CANPOLAT","Fidan-Temel"],[0,"19:00","Uğur GÜÇLÜ","Filiz-Başlangıç"],[0,"19:00","Zeynep NARİN CANPOLAT","Fidan-Orta"],[0,"19:00","Muhammet Erkam AVCI","Filiz-Başlangıç"]],"N":{"17":["2026-09-26","Seviyeye ve kazanıma uygun kültürerarası yaklaşım ile selamlaşmayı öğretti. Etkileşim çok iyiydi."],"19":["2026-09-26","Harika. Çok beğendim. Kazanıma seviyeye uygun devam ediyor sınıf."],"20":["2026-09-26","Bu derste normade okuma-yazma öğretilmiyor dememize rağmen ben öğreticem. İstiklal Marşı ile derse başlaması harika. Ortalık curcuna. Farklı farklı sesler açılmış. Bu kadar uzun süre bu yaş grubuna Bir Başkadır Benim memleketim dinletemeyiz. Buz kırıcı etkinlikleri yapmadı. Bence yanlış yerde. Sevde ağladı. Tohum temel grubu olmasına rağmen Filiz Başlangıç yaptı.  Pefagoijisi berbat."],"21":["2026-09-26","Muhteşem. Etkileşim çok yerinde. Yönergeleri okuyalım."],"25":["2026-09-26","Öğretmenin kamerası kapalıydı. Ders biterken açtı. Kazanıma uygun ders yapmadı. Materyal fabrikasından kalıp ifadelerini kullandı."],"31":["2026-09-26","Abdullah isimli öğrenci konsantre olamıyor. Hoca, bizim sunumu açtı ve aynen onu derste işledi ancak yaş grubuna hiç uygun değildi. Hoca kendi sazını çalıyor. Biraz daha öğrenciere söz hakkı vermeliyiz."],"32":["2026-09-26","Dönütler coşkulu olmalı. Kazanıma uygun ders işledi."],"39":["2026-09-26","kazanıma uygun."],"40":["2026-09-26","kazanıma uygun. Çocuk \"seviyom\" diyor ama düzeltmiyor :) Missing no mantığıyla düzeltmesi gerekirdi."],"41":["2026-09-26","Velileri tanıyarak başladı. Okuma-yazma konusuna bizim yaklaştığımız şekilde yaklaştı."],"47":["2026-09-26","Seviyenin çok üstünde. Bu sınıfta Ömer değişik. \"Senin dil yeterliliğin nasıl?\" diye sordu. Hiç yerinde soru değil."],"49":["2026-09-26","Kazanıma uygun davrandı. Velileri davet etti. Şarkıyla merhaba öğretmeye çalıştı. Sorun yok."],"70":["2026-09-26","Dönütler coşkulu olmalı. Kazanıma uygun ders işledi."]}};
+const GUN=["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"],ORD=[1,2,3,4,5,6,0];
+const KEY="dersDenetim_v2",OLD="dersDenetim_v1";
+const gcl=g=>({Tohum:"g-t",Fidan:"g-f",Filiz:"g-l","Çınar":"g-c"})[(g||"").split("-")[0]]||"";
+const nk=n=>n.trim().toLocaleLowerCase("tr");
+function lastDay(g,f){const d=f?new Date(f):new Date();while(Array.isArray(g)?!g.includes(d.getDay()):d.getDay()!==g)d.setDate(d.getDate()-1);return iso(d)}
+const Q=[["mat","Kazanıma uygun materyal kullanımı"],["stu","Öğrenci iletişimi"],["par","Veli iletişimi"],["cul","Kültür köşesi"]];
+let S;
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const dow=s=>new Date(s+"T00:00").getDay();
+const trd=s=>new Date(s+"T00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"});
+function load(){
+  try{const r=localStorage.getItem(KEY);if(r){S=JSON.parse(r);return}}catch(e){}
+  S={lessons:SEED.L.map((l,i)=>({id:"s"+i,day:l[0],hour:l[1],name:l[2],group:l[3]})),logs:{}};
+  try{const o=JSON.parse(localStorage.getItem(OLD)||"null");if(o){const m={},old={};for(const l of S.lessons)m[l.day+l.hour+nk(l.name)+l.group]=l.id;
+    for(const l of o.lessons){let id=m[l.day+l.hour+nk(l.name)+l.group];if(!id&&(l.id[0]==="n"||Object.keys(o.logs).some(k=>k.endsWith("|"+l.id)))){id=l.id[0]==="n"?l.id:"o"+l.id;S.lessons.push({...l,id})}if(id)old[l.id]=id}
+    for(const k in o.logs){const [d,i]=k.split("|");if(old[i])S.logs[d+"|"+old[i]]=o.logs[k]}}}catch(e){}
+  for(const k in SEED.N){const key=SEED.N[k][0]+"|s"+k;if(!S.logs[key])S.logs[key]={note:SEED.N[k][1]}}
+  save();
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+let date=lastDay([2,3,4,6,0]),view="day";
+const log=(d,id)=>S.logs[d+"|"+id]||{};
+function setLog(id,k,v){
+  const key=date+"|"+id;
+  const x=(S.logs[key]=S.logs[key]||{});
+  if(v!==undefined&&v!==null&&v!==""){
+    x[k]=v;
+  } else {
+    delete x[k];
+  }
+  if(!Object.keys(x).length) delete S.logs[key];
+  save();
+}
+function updateCardState(card){
+  if(!card) return;
+  const l=S.lessons.find(x=>x.id===card.dataset.id);
+  if(l){
+    const st=status(l);
+    card.classList.remove("part","full");
+    if(st) card.classList.add(st);
+    if(view==="day"){
+      const d=dow(date),ls=S.lessons.filter(x=>x.day===d),done=ls.filter(x=>status(x)==="full").length;
+      const el=$("#sum");
+      if(el&&!el.hidden) el.textContent=`${trd(date)}, ${GUN[d]} · ${ls.length} ders · ${done} tamamlandı`;
+    }
+  }
+}
+function status(l){const x=log(date,l.id);const n=Q.filter(q=>x[q[0]]).length+(x.in?1:0)+(x.out?1:0);return n===0?"":n===6?"full":"part"}
+function cardHtml(l,t){const x=log(date,l.id);return `<div class="card ${status(l)} ${gcl(l.group)}" data-id="${l.id}">
+<div class="hd"><div>${t?`<b>${GUN[l.day]} ${esc(l.hour)}</b>`:`<button class="nm" data-his="${esc(l.name)}">${esc(l.name)}</button>`}<br><span class="chip ${gcl(l.group)}">${esc(l.group)}</span></div><button class="x" data-del="${l.id}" aria-label="Dersi sil" title="Bu dersi sil">×</button></div>
+<div class="tm"><label>Derse giriş<input type="time" data-k="in" value="${esc(x.in||"")}"></label><label>Dersten çıkış<input type="time" data-k="out" value="${esc(x.out||"")}"></label></div>
+${Q.map(q=>`<label class="q2">${q[1]}<textarea class="nt" data-k="${q[0]}" placeholder="Notunuz…">${esc(tv(x[q[0]]))}</textarea></label>`).join("")}
+<textarea class="nt" data-k="note" placeholder="Genel not…" aria-label="Not">${esc(x.note||"")}</textarea></div>`}
+function renderDay(){
+  $("#date").value=date;const d=dow(date);
+  $("#tabs").innerHTML=ORD.map(g=>{const c=S.lessons.filter(l=>l.day===g).length;return `<button class="tab" role="tab" aria-selected="${g===d}" data-g="${g}">${GUN[g]}<small>${c}</small></button>`}).join("");
+  const term=$("#q").value.trim().toLocaleLowerCase("tr");
+  const ls=S.lessons.filter(l=>l.day===d).sort((a,b)=>a.hour.localeCompare(b.hour)||a.name.localeCompare(b.name,"tr"));
+  const done=ls.filter(l=>status(l)==="full").length;
+  $("#sum").textContent=`${trd(date)}, ${GUN[d]} · ${ls.length} ders · ${done} tamamlandı`;
+  const vis=ls.filter(l=>!term||l.name.toLocaleLowerCase("tr").includes(term));
+  if(!vis.length){$("#list").innerHTML=`<div class="empty">${ls.length?"Aramaya uyan öğretmen yok.":"Bu güne kayıtlı ders yok. “+ Öğretmen / ders ekle” ile ekleyebilirsiniz."}</div>`;return}
+  let h="",cur="";
+  for(const l of vis){
+    if(l.hour!==cur){if(cur!==undefined&&h)h+="</div>";cur=l.hour;h+=`<h2>${esc(l.hour||"Saat belirtilmemiş")}</h2><div class="grid">`}
+    h+=cardHtml(l);
+  }
+  $("#list").innerHTML=h+"</div>";
+}
+
+function render(){
+  $("#nDay").setAttribute("aria-selected",view==="day");$("#nLst").setAttribute("aria-selected",view!=="day");
+  $("#tabs").hidden=$("#sum").hidden=$("#dayNav").hidden=view!=="day";$("#q").hidden=view!=="day"&&view!=="list";
+  view==="day"?renderDay():view==="list"?renderL():renderT(view);
+}
+function renderL(){
+  const term=$("#q").value.trim().toLocaleLowerCase("tr"),m={},last={},cnt={};
+  for(const l of S.lessons)(m[nk(l.name)]=m[nk(l.name)]||{n:l.name,ls:[]}).ls.push(l);
+  for(const k in S.logs){const [d,id]=k.split("|"),l=S.lessons.find(x=>x.id===id);if(!l||!Object.values(S.logs[k]).some(v=>v))continue;const t=nk(l.name);cnt[t]=(cnt[t]||0)+1;if(!last[t]||d>last[t])last[t]=d}
+  const ks=Object.keys(m).filter(k=>!term||k.includes(term)).sort((a,b)=>a.localeCompare(b,"tr"));
+  $("#list").innerHTML=`<div class="sum">${ks.length} öğretmen · sayfasını açmak için adına tıklayın</div><div class="grid">`+ks.map(k=>`<button class="card tc" data-view="${esc(k)}"><b>${esc(m[k].n)}</b><br><span class="sum">${m[k].ls.map(l=>`<span class="chip ${gcl(l.group)}">${GUN[l.day].slice(0,3)} ${l.hour}</span>`).join(" ")}</span><br><small>${cnt[k]?cnt[k]+" kayıt · son "+trd(last[k]):"Henüz kayıt yok"}</small></button>`).join("")+"</div>";
+}
+function renderT(k){
+  const ls=S.lessons.filter(l=>nk(l.name)===k).sort((a,b)=>ORD.indexOf(a.day)-ORD.indexOf(b.day)||a.hour.localeCompare(b.hour));
+  if(!ls.length){view="list";return render()}
+  const name=ls[0].name,d=dow(date),td=ls.filter(l=>l.day===d);
+  $("#list").innerHTML=`<button class="btn" data-view="list">‹ Tüm öğretmenler</button>
+<h1 style="margin:14px 0 6px">${esc(name)}</h1>
+<div class="row">${ls.map(l=>`<button class="chip ${gcl(l.group)}" data-g="${l.day}" title="Bu güne git">${GUN[l.day]} ${esc(l.hour)} · ${esc(l.group)}</button>`).join("")}</div>
+<div class="row" style="margin-top:10px"><button class="btn" data-addfor="${esc(name)}">+ Ders ekle</button><button class="btn" data-xl="${esc(k)}">Excel'e aktar</button><button class="btn d" data-rm="${esc(k)}">Öğretmeni çıkar</button></div>
+<h2>Denetim kaydı</h2>
+<div class="row" style="margin-bottom:10px"><button class="btn" data-sh="-7">‹ Önceki hafta</button><input type="date" id="tDate" value="${date}"><button class="btn" data-sh="7">Sonraki hafta ›</button><span class="sum">${GUN[d]}</span></div>
+${td.length?`<div class="grid">${td.map(l=>cardHtml(l,1)).join("")}</div>`:`<div class="empty">${trd(date)} (${GUN[d]}) günü bu öğretmenin dersi yok. Yukarıdaki ders etiketlerinden birine tıklayın.</div>`}
+<h2>Geçmiş kayıtlar</h2>${hHtml(name,1)}`;
+}
+function tv(v){return v==="e"?"Evet":v==="h"?"Hayır":(v||"")}
+function flags(x){return Q.filter(q=>x[q[0]]).map(q=>`<span style="display:block"><span style="font-weight:600">${q[1]}:</span> ${esc(tv(x[q[0]]))}</span>`).join("")}
+function hHtml(name,ed){
+  const L=Object.fromEntries(S.lessons.map(l=>[l.id,l]));
+  let rows=Object.entries(S.logs).map(([k,x])=>{const [d,id]=k.split("|");return {d,l:L[id],x}}).filter(r=>r.l&&(!name||nk(r.l.name)===nk(name))&&(Object.values(r.x).some(v=>v)));
+  rows.sort((a,b)=>b.d.localeCompare(a.d)||a.l.name.localeCompare(b.l.name,"tr"));
+  if(!rows.length)return `<div class="empty">Henüz kayıt yok.</div>`;
+  const wk=d=>{const x=new Date(d+"T00:00");x.setDate(x.getDate()-((x.getDay()+6)%7));return iso(x)};
+  let h="",cw="";
+  for(const r of rows){
+    const w=wk(r.d);
+    if(ed&&w!==cw){cw=w;const e=new Date(w+"T00:00");e.setDate(e.getDate()+6);h+=`<div class="wk">${trd(w)} – ${trd(iso(e))} haftası</div>`}
+    h+=`<div class="rec ${gcl(r.l.group)}"><div class="rh"><b>${trd(r.d)}, ${GUN[r.l.day]} ${esc(r.l.hour)}</b>${name?"":` · ${esc(r.l.name)}`}<span class="chip ${gcl(r.l.group)}">${esc(r.l.group)}</span>${r.x.in||r.x.out?`<span class="chip">Giriş ${esc(r.x.in||"—")} · Çıkış ${esc(r.x.out||"—")}</span>`:""}${ed?`<button class="btn" data-edit="${r.d}">Düzenle</button>`:""}</div>`
+    +Q.filter(q=>r.x[q[0]]).map(q=>`<div class="rl"><span>${q[1]}</span><p>${esc(tv(r.x[q[0]]))}</p></div>`).join("")
+    +(r.x.note?`<div class="rl"><span>Genel not</span><p>${esc(r.x.note)}</p></div>`:"")+`</div>`}
+  return h;
+}
+function history(name){$("#hT").textContent=name?name+" – tarih tarih notlar":"Tüm notlar";$("#hB").innerHTML=hHtml(name,0);$("#dHis").showModal()}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;
+  if(t.dataset.g!==undefined){date=lastDay(+t.dataset.g);render()}
+  else if(t.dataset.his)history(t.dataset.his);
+  else if(t.dataset.view){view=t.dataset.view;render();scrollTo(0,0)}
+  else if(t.dataset.edit){date=t.dataset.edit;render();scrollTo(0,0)}
+  else if(t.dataset.sh)shift(+t.dataset.sh);
+  else if(t.dataset.addfor)openAdd(t.dataset.addfor);
+  else if(t.dataset.rm)rmT(t.dataset.rm);
+  else if(t.dataset.xl)exportXlsx(t.dataset.xl);
+  else if(t.dataset.del){const l=S.lessons.find(l=>l.id===t.dataset.del);if(confirm(`${l.name} (${GUN[l.day]} ${l.hour}, ${l.group}) dersi silinsin mi? Bu derse ait notlar da silinir.`)){S.lessons=S.lessons.filter(x=>x!==l);for(const k in S.logs)if(k.endsWith("|"+l.id))delete S.logs[k];save();render()}}
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.id==="tDate"&&t.value){date=t.value;render();return}
+  const card=t.closest(".card");
+  if(card&&t.dataset.k){
+    setLog(card.dataset.id,t.dataset.k,t.value);
+    updateCardState(card);
+  }
+});
+document.addEventListener("input",e=>{
+  const t=e.target;
+  const card=t.closest(".card");
+  if(card&&t.dataset.k&&(t.tagName==="TEXTAREA"||t.tagName==="INPUT")){
+    setLog(card.dataset.id,t.dataset.k,t.value);
+    updateCardState(card);
+  }
+});
+$("#date").onchange=e=>{if(e.target.value){date=e.target.value;render()}};
+const shift=n=>{const d=new Date(date+"T00:00");d.setDate(d.getDate()+n);date=iso(d);render()};
+$("#prev").onclick=()=>shift(-7);$("#next").onclick=()=>shift(7);$("#q").oninput=render;
+$("#bAll").onclick=()=>history(null);$("#hX").onclick=()=>$("#dHis").close();
+$("#aD").innerHTML=ORD.map(g=>`<option value="${g}">${GUN[g]}</option>`).join("");
+function openAdd(n){
+  $("#names").innerHTML=[...new Set(S.lessons.map(l=>l.name))].sort((a,b)=>a.localeCompare(b,"tr")).map(n=>`<option value="${esc(n)}">`).join("");
+  $("#aN").value=n||"";$("#aD").value=dow(date);$("#dAdd").showModal()}
+$("#bAdd").onclick=()=>openAdd("");
+$("#fAdd").onsubmit=e=>{
+  if(e.submitter&&e.submitter.value!=="ok")return;
+  const n=$("#aN").value.trim();if(!n)return;
+  S.lessons.push({id:"n"+Date.now(),day:+$("#aD").value,hour:$("#aH").value,name:n,group:$("#aG1").value+"-"+$("#aG2").value});
+  save();$("#aN").value="";render()};
+function rmT(k){
+  const ids=S.lessons.filter(l=>nk(l.name)===k).map(l=>l.id),n=(S.lessons.find(l=>l.id===ids[0])||{}).name;
+  if(!ids.length)return alert("Önce listeden silmek istediğiniz öğretmenin adını yazın veya seçin.");
+  if(confirm(`${n} adlı öğretmenin ${ids.length} dersi ve tüm notları silinsin mi?`)){S.lessons=S.lessons.filter(l=>!ids.includes(l.id));for(const q in S.logs)if(ids.includes(q.split("|")[1]))delete S.logs[q];save();$("#aN").value="";$("#dAdd").close();if(view!=="day")view="list";render()}}
+$("#aDel").onclick=()=>rmT(nk($("#aN").value));
+$("#bBak").onclick=()=>{$("#bT").value=JSON.stringify(S);$("#dBak").showModal()};
+$("#bCl").onclick=()=>$("#dBak").close();
+$("#bCp").onclick=async()=>{$("#bT").select();try{await navigator.clipboard.writeText($("#bT").value)}catch(e){document.execCommand("copy")}};
+$("#bLd").onclick=()=>{try{const d=JSON.parse($("#bT").value);if(!Array.isArray(d.lessons)||typeof d.logs!=="object")throw 0;
+  if(!confirm("Mevcut veriler yüklenen yedekle değiştirilecek. Devam edilsin mi?"))return;S=d;save();$("#dBak").close();render()}catch(e){alert("Yedek metni geçerli değil.")}};
+async function exportXlsx(k,from,to){
+  const dl=window.claude?await claude.use("downloads"):null;
+  if(!window.XLSX){alert("Excel kütüphanesi yüklenemedi; internet bağlantınızı kontrol edin.");return}
+  const L=Object.fromEntries(S.lessons.map(l=>[l.id,l]));
+  const rows=Object.entries(S.logs).map(([key,x])=>{const [d,id]=key.split("|");return {d,l:L[id],x}}).filter(r=>r.l&&Object.values(r.x).some(v=>v)&&(!k||nk(r.l.name)===k)&&(!from||r.d>=from)&&(!to||r.d<=to)).sort((a,b)=>a.d.localeCompare(b.d)||a.l.name.localeCompare(b.l.name,"tr"));
+  if(!rows.length){alert("Seçilen kapsamda aktarılacak kayıt yok.");return}
+  const A=[["Tarih","Gün","Saat","Öğretmen","Sınıf-Seviye","Giriş saati","Çıkış saati",...Q.map(q=>q[1]),"Genel not"]];
+  for(const r of rows)A.push([r.d,GUN[r.l.day],r.l.hour,r.l.name,r.l.group,r.x.in||"",r.x.out||"",...Q.map(q=>tv(r.x[q[0]])),r.x.note||""]);
+  const T={};for(const l of S.lessons)(T[nk(l.name)]=T[nk(l.name)]||{n:l.name,c:0,r:0,last:"",q:Q.map(()=>0)}).c++;
+  for(const r of rows){const t=T[nk(r.l.name)];t.r++;if(r.d>t.last)t.last=r.d;Q.forEach((q,i)=>{if(r.x[q[0]])t.q[i]++})}
+  const B=[["Öğretmen","Haftalık ders sayısı","Kayıt sayısı","Son kayıt tarihi",...Q.map(q=>q[1]+" (not girilen kayıt)")]];
+  Object.values(T).filter(t=>!k||nk(t.n)===k).sort((a,b)=>a.n.localeCompare(b.n,"tr")).forEach(t=>B.push([t.n,t.c,t.r,t.last,...t.q]));
+  const C=[["Gün","Saat","Öğretmen","Sınıf-Seviye"]];
+  S.lessons.filter(l=>!k||nk(l.name)===k).sort((a,b)=>ORD.indexOf(a.day)-ORD.indexOf(b.day)||a.hour.localeCompare(b.hour)||a.name.localeCompare(b.name,"tr")).forEach(l=>C.push([GUN[l.day],l.hour,l.name,l.group]));
+  const wb=XLSX.utils.book_new();
+  [["Kayıtlar",A,[11,11,7,28,16,10,10,34,26,26,26,50]],["Öğretmen özeti",B,[28,14,12,14,28,22,22,22]],["Ders programı",C,[12,8,28,16]]].forEach(([n,a,w])=>{const ws=XLSX.utils.aoa_to_sheet(a);ws["!cols"]=w.map(x=>({wch:x}));XLSX.utils.book_append_sheet(wb,ws,n)});
+  const buf=XLSX.write(wb,{bookType:"xlsx",type:"array"});
+  const fn=`ders-denetim${k?"-"+k.replace(/[^\p{L}\d]+/gu,"-"):""}-${iso(new Date())}.xlsx`;
+  if(!dl){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([buf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));a.download=fn;document.body.appendChild(a);a.click();a.remove();return}
+  try{await dl.save({filename:fn,data:buf})}catch(e){if(!e||e.code!=="declined")alert("Dosya kaydedilemedi: "+((e&&(e.message||e.code))||""))}
+}
+$("#bXl").onclick=()=>$("#dXl").showModal();$("#xC").onclick=()=>$("#dXl").close();
+$("#xG").onclick=()=>{$("#dXl").close();exportXlsx(null,$("#xF").value,$("#xT").value)};
+const EM=["👍","👏","⭐","🌟","✅","❌","⚠️","💬","📞","📚","🎨","🕒","😊","🙂","😕","❤️","🎉","💡","📝","🌱"];let lastTA=null;
+$("#emo").innerHTML=EM.map(e=>`<button type="button" aria-label="Emoji ekle">${e}</button>`).join("");
+document.addEventListener("focusin",e=>{if(e.target.matches&&e.target.matches("textarea.nt")){lastTA=e.target;$("#emo").hidden=false}});
+document.addEventListener("focusout",e=>{setTimeout(()=>{const a=document.activeElement;if(!a||!a.matches||!a.matches("textarea.nt"))$("#emo").hidden=true},150)});
+$("#emo").addEventListener("mousedown",e=>e.preventDefault());
+$("#emo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b||!lastTA)return;const t=lastTA,s=t.selectionStart,n=t.selectionEnd,c=b.textContent;t.value=t.value.slice(0,s)+c+t.value.slice(n);t.selectionStart=t.selectionEnd=s+c.length;t.focus();t.dispatchEvent(new Event("input",{bubbles:true}))});
+function init(){load();render()}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init)}else{init()}
+</script>
+</body>
+</html>
