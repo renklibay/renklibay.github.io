@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theseus'un Gemisi: Varlık ve Değişim Paradoksu - Bilgi Küpü</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --su: #3d9e7a;
+      --su-light: #6bbfa0;
+      --su-pale: #d4f0e6;
+      --su-dark: #1e5c47;
+      --su-deeper: #0d3329;
+      --cream: #f5f9f7;
+      --white: #ffffff;
+      --text: #1a2e27;
+      --text-muted: #5a7a70;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --dark-bg: #0f201b;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Background Gradients */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--su-pale) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(61, 158, 122, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(245, 249, 247, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(61, 158, 122, 0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--su-dark);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .nav-back-btn {
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--su);
+      border: 1px solid var(--su-light);
+      padding: 0.5rem 1.3rem;
+      border-radius: 50px;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-back-btn:hover {
+      background: var(--su);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    .story-header {
+      margin-bottom: 3.5rem;
+      text-align: center;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .story-category {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--su);
+      margin-bottom: 0.8rem;
+    }
+
+    .story-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      color: var(--su-deeper);
+      line-height: 1.2;
+      max-width: 950px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .story-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .story-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* GRID LAYOUT */
+    .story-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* TEXT CONTENT */
+    .story-content {
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .story-content p {
+      font-size: 1.08rem;
+      color: var(--text);
+      margin-bottom: 1.6rem;
+      text-align: justify;
+    }
+
+    .story-content > p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      float: left;
+      line-height: 0.8;
+      margin-right: 0.75rem;
+      margin-top: 0.2rem;
+      color: var(--su-dark);
+    }
+
+    .story-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      color: var(--su-deeper);
+      margin: 2.8rem 0 1.1rem;
+      line-height: 1.3;
+    }
+
+    .story-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--su-dark);
+      margin: 2rem 0 0.8rem;
+    }
+
+    /* QUOTE STYLING */
+    blockquote {
+      border-left: 4px solid var(--su);
+      padding: 1.2rem 1.6rem;
+      margin: 2rem 0;
+      background: rgba(61, 158, 122, 0.06);
+      border-radius: 0 14px 14px 0;
+      font-style: italic;
+      font-size: 1.12rem;
+      color: var(--su-dark);
+      line-height: 1.7;
+    }
+
+    blockquote cite {
+      display: block;
+      margin-top: 0.8rem;
+      font-size: 0.88rem;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--su-deeper);
+      text-align: right;
+    }
+
+    /* LIST STYLING */
+    .paradox-list {
+      margin: 1.4rem 0 2rem 1.5rem;
+      list-style: none;
+    }
+
+    .paradox-list li {
+      position: relative;
+      padding-left: 1.8rem;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .paradox-list li::before {
+      content: '⚓';
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      font-size: 0.95rem;
+      color: var(--su);
+    }
+
+
+
+    /* MEDIA SIDEBAR */
+    .media-sidebar {
+      position: sticky;
+      top: 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+      align-items: center;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .media-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(61, 158, 122, 0.15);
+      border-radius: 20px;
+      padding: 1.25rem;
+      box-shadow: 0 15px 35px rgba(30, 92, 71, 0.08);
+      backdrop-filter: blur(8px);
+      width: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .media-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 45px rgba(30, 92, 71, 0.15);
+    }
+
+    .media-wrapper {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #eaeaea;
+    }
+
+    .media-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .media-card:hover .media-image {
+      transform: scale(1.02);
+    }
+
+    .media-caption {
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* SIDEBAR COMPACT INFO CARD */
+    .sidebar-info-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(61, 158, 122, 0.18);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 12px 30px rgba(30, 92, 71, 0.06);
+      backdrop-filter: blur(8px);
+      width: 100%;
+    }
+
+    .sidebar-info-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--su-deeper);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(61, 158, 122, 0.15);
+      padding-bottom: 0.6rem;
+    }
+
+    .concept-item {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px dashed rgba(61, 158, 122, 0.2);
+    }
+
+    .concept-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .concept-head {
+      font-weight: 700;
+      color: var(--su-dark);
+      font-size: 0.92rem;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .concept-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--su-deeper);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 2.5rem 3rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 0.82rem;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span {
+      color: var(--su-light);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .container {
+        padding: 7rem 1.5rem 3rem;
+      }
+
+      .story-layout {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .media-sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Ayşe Renklibay</a>
+    <a href="index.html" class="nav-back-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Geri Dön
+    </a>
+  </nav>
+
+  <!-- CONTENT CONTAINER -->
+  <main class="container">
+    <!-- STORY HEADER -->
+    <header class="story-header">
+      <p class="story-category">Bilgi Küpü — Felsefe &amp; Paradoks</p>
+      <h1 class="story-title">Theseus'un Gemisi: Varlık ve Değişim Paradoksu</h1>
+      <div class="story-meta">
+        <span>📅 Antik Çağ &amp; 17. Yüzyıl</span>
+        <span>📍 Atina, Antik Yunanistan</span>
+        <span>🏛️ Plutarkhos &amp; Thomas Hobbes</span>
+        <span>🧠 Kimlik ve Metafizik</span>
+      </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="story-layout">
+      <!-- STORY CONTENT -->
+      <article class="story-content">
+        <p>
+          Theseus'un Gemisi, felsefede, bütün parçaları zaman içinde değişmiş bir şeyin hâlâ aynı şey olup olmadığı
+          sorusunu soran büyüleyici bir paradoks ve klasik bir düşünce deneyidir. Bir varlığın özünü, kimliğini ve
+          zaman içindeki sürekliliğini sorgulayan bu asırlık muamma, antik çağlardan günümüz modern bilimine kadar
+          düşünürlerin zihnini meşgul etmeye devam etmektedir.
+        </p>
+
+        <h2>Plutarkhos ve Antik Yunan Efsanesi</h2>
+        <p>
+          Plutarkhos'un aktardığı Yunan efsanesine göre, Girit'ten muzaffer dönen Theseus'un gemisi Atina'da hatıra olarak
+          uzun süre muhafaza edilir. Zamanla geminin tahtaları çürüdükçe yenileriyle değiştirilir. Öyle ki, bir gün geminin
+          değiştirilmedik hiçbir parçası kalmaz. Bu durumda gemi hâlâ Theseus'un gemisi sayılır mı, yoksa başka bir gemi
+          hâline mi gelmiştir sorusu ortaya konur. Gemi, antik filozoflar için bitmek tükenmek bilmeyen bir tartışma konusu olmuştur.
+        </p>
+
+        <p>
+          Orijinal hikâyeye göre, "Theseus'un Gemisi" paradoksu, tüm bileşenleri tek tek değiştirilen bir geminin aynı gemi
+          olarak kalıp kalmayacağı konusundaki bir tartışmayı ele alır. Bu soru, Plutarkhos tarafından <em>"Theseus'un Hayatı"</em>
+          adlı eserinde şu ifadelerle kayda geçirilmiştir:
+        </p>
+
+        <blockquote>
+          “Girit'den Theseus ve Atina gençlerinin dönüş yaptığı gemi otuz kürekliydi ve Atinalılar tarafından Demetrius
+          Phalereus'un zamanına kadar korundu. Eskimiş tahtaları çıkarıp yerlerine yeni ve daha güçlü ağaçlar yerleştirerek
+          gemiyi korumuşlardı. Bu nedenle bu gemi, büyüme konusundaki mantıksal sorunların filozoflar arasında bir örnek
+          haline gelmiştir; bir taraf geminin aynı kaldığını iddia ederken, diğer taraf geminin aynı olmadığını savunuyordu.”
+          <cite>— Plutarch, Life of Theseus 23.1</cite>
+        </blockquote>
+
+        <h2>Thomas Hobbes ve İkinci Gemi İkilemi</h2>
+        <p>
+          Yüzyıllar sonra 17. yüzyıl İngiliz filozofu <strong>Thomas Hobbes</strong>, düşünce deneyini daha da karmaşık ve
+          çarpıcı bir boyuta taşıdı. Hobbes; geminin çürümüş parçalarının Atinalılar tarafından atılması ve yerlerine konulması
+          sırasında bir bekçi tarafından gizlice toplandığını ve bu çürümekte olan eski tahtaların daha sonra bir araya getirilerek
+          ikinci bir gemi yapmak için kullanıldığını varsaydı.
+        </p>
+
+        <p>
+          Hobbes, ortaya çıkan bu iki sonuç veren gemiden hangisinin "orijinal" gemi olduğunu sordu: Limanda duran ve tüm parçaları
+          yenilenmiş gemi mi, yoksa bekçinin atılan eski tahtalardan yeniden inşa ettiği gemi mi?
+        </p>
+
+        <blockquote>
+          “Çünkü bu Theseus'un Gemisi (sürekli tamirle fark yaratan, eski tahtaların çıkarılması ve yenilerinin yerine
+          konulmasıyla ilgili, Atina sofistlerinin tartıştığı), bütün tahtalar değiştirildikten sonra başlangıçta olduğu
+          gibi aynı Sayısal Gemi miydi; ve birisi eski tahtaları çıkarır çıkarmaz, daha sonra aynı sırayla bir araya getirerek
+          onlardan yeniden bir gemi yapmış olsaydı, bu şüphesiz ki başlangıçtaki gemiyle aynı Sayısal Gemi olurdu ve bu da,
+          Sayısal olarak aynı iki Gemi olurdu ki bu da anlamsızdır... Ancak bir şeyin Kimliği hakkında soru sorduğumuzda,
+          ona hangi ismin verildiğini düşünmeliyiz... böylece bir Gemi, Maddeyi böyle biçimlenmiş olarak ifade ettiği için,
+          Madde aynı kaldığı sürece aynı olacaktır; ancak Madde'nin hiçbir parçası aynı değilse, o zaman Sayısal olarak başka
+          bir Gemi olacaktır; ve Madde'nin bir kısmı aynı kalırsa, bir kısmı değişirse, o zaman Gemi kısmen aynı, kısmen aynı
+          olmayacaktır.”
+          <cite>— Thomas Hobbes, "Kimlik ve Farklılık Üzerine"</cite>
+        </blockquote>
+
+        <h2>Form ve Madde: Kimliğin İki Farklı Tanımı</h2>
+        <p>
+          Hobbes, iki sonuç veren gemiyi, "Kimlik" veya aynılığın iki farklı felsefi tanımını gösteren iki farklı gemi
+          olarak düşündü:
+        </p>
+
+        <ul class="paradox-list">
+          <li>
+            <strong>1) Orijinal gemi ile aynı "Form"u (Biçimi) koruyan gemi:</strong> Malzemenin tamamen değiştirilmesine
+            rağmen tarihsel ve işlevsel olarak kesintisiz devam eden; denizde görevini sürdüren gemi.
+          </li>
+          <li>
+            <strong>2) Aynı "Madde"den (Tözden) yapılmış gemi:</strong> Başlangıçtaki tahtaların bir araya getirilmesiyle
+            oluşan; ancak ilk parça değiştirildiği andan itibaren kesintisiz varoluşu sekteye uğramış gemi.
+          </li>
+        </ul>
+
+
+
+        <h2>İnsan Hücreleri ve Biyolojik Aynamız</h2>
+        <p>
+          Theseus'un Gemisi yalnızca tahtadan bir tekneye dair antika bir bilmece değildir; doğrudan biyolojimize, benliğimize
+          ve "ben kimim?" sorusuna ışık tutar. Biyoloji bilimine göre insan vücudundaki hücrelerin hemen hemen tamamı (derimiz,
+          bağırsaklarımız, kırmızı kan hücrelerimiz ve hatta kemik dokularımız) 7 ila 10 yıl içerisinde ölür ve yerlerini yeni
+          hücrelere bırakır.
+        </p>
+
+        <p>
+          Şu an bu satırları okuyan siz, 10 yıl önceki çocukluk veya gençlik fotoğraflarınızdaki biyolojik "madde"yi neredeyse
+          hiç taşımıyorsunuz. Maddi olarak tamamen farklı moleküllerden yapılmış olmanıza rağmen kendinizi nasıl aynı insan
+          olarak hissedebiliyorsunuz? Filozof <strong>John Locke</strong>'un belirttiği gibi, bizi biz yapan şey atomlarımızın
+          değişmezliği değil; hafızamızın, anılarımızın ve bilincimizin zaman çizgisindeki kesintisiz akışıdır.
+        </p>
+
+        <p>
+          Theseus'un Gemisi bize şunu fısıldar: Değişim, varlığın sonu değil; var olmanın ve yaşamanın yegâne şartıdır.
+        </p>
+      </article>
+
+      <!-- MEDIA SIDEBAR -->
+      <aside class="media-sidebar">
+        <!-- Main Ship Image -->
+        <div class="media-card">
+          <div class="media-wrapper">
+            <img src="Theseusun Gemisi.jpg" onerror="this.src='../Theseusun Gemisi.jpg'" alt="Theseus'un Gemisi İllüstrasyonu"
+              class="media-image" />
+          </div>
+          <div class="media-caption">
+            <strong>Theseus'un Efsanevi Gemisi</strong><br>
+            Girit seferinden zaferle dönen otuz kürekli antik kadırga. Asırlar boyu süren tamiratlar, onu düşünce tarihinin en
+            derin felsefi açmazına dönüştürdü.
+          </div>
+        </div>
+
+        <!-- Philosophical Concept Card -->
+        <div class="sidebar-info-card">
+          <h3 class="sidebar-info-title">
+            <span>⚖️</span> Form vs. Madde İkilemi
+          </h3>
+
+          <div class="concept-item">
+            <div class="concept-head">🏛️ Form (Biçim &amp; İşlev)</div>
+            <p class="concept-desc">
+              Bir varlık, tasarımını, amacını ve tarihsel akışını koruduğu sürece parçaları değişse dahi <em>aynı</em> kalır.
+            </p>
+          </div>
+
+          <div class="concept-item">
+            <div class="concept-head">🪵 Madde (Fiziksel Töz)</div>
+            <p class="concept-desc">
+              Bir varlık ancak onu meydana getiren somut parçalar korunduğunda kendisidir; parçalar değiştiğinde özdeşlik bozulur.
+            </p>
+          </div>
+
+          <div class="concept-item">
+            <div class="concept-head">⏳ Zaman &amp; Süreklilik</div>
+            <p class="concept-desc">
+              Kimlik anlık bir durum değil; zaman ve mekan boyunca kopmayan bir varoluş zinciridir.
+            </p>
+          </div>
+        </div>
+
+        <!-- Related Anecdote Card -->
+        <div class="sidebar-info-card">
+          <h3 class="sidebar-info-title">
+            <span>🪓</span> Benzer Paradokslar
+          </h3>
+
+          <div class="concept-item">
+            <div class="concept-head">Dedemin Baltası</div>
+            <p class="concept-desc">
+              "Sapı üç kez kırılıp yenilendi, demiri iki kez değişti; ama o hâlâ büyükbabamın yadigâr baltasıdır."
+            </p>
+          </div>
+
+          <div class="concept-item">
+            <div class="concept-head">Müzik Grubu Paradoksu</div>
+            <p class="concept-desc">
+              Yıllar içinde tüm kurucu üyeleri teker teker ayrılıp yerine yenileri gelen bir müzik grubu hâlâ aynı grup mudur?
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 <span>Ayşe Renklibay</span> — Tüm hakları saklıdır.</p>
+  </footer>
+
+
+
+</body>
+
+</html>

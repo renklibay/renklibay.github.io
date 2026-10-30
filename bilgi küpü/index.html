@@ -139,7 +139,7 @@
     }
 
     .portal-inner {
-      max-width: 1100px;
+      max-width: 1200px;
       width: 100%;
       margin: 0 auto;
       text-align: center;
@@ -177,10 +177,10 @@
     /* ── CARD GRID ── */
     .portal-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 3rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.2rem;
       margin-top: 2rem;
-      max-width: 840px;
+      max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -310,7 +310,14 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 820px) {
+    @media (max-width: 1050px) {
+      .portal-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
+      }
+    }
+
+    @media (max-width: 768px) {
       nav {
         padding: 1rem 1.5rem;
       }
@@ -326,6 +333,7 @@
       .portal-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
+        max-width: 420px;
       }
 
       .article-card {
@@ -383,6 +391,18 @@
           <p class="article-title">Sanat Zehirlenmesi</p>
           <p class="article-desc">Bir sanat eseri karşısında kalp çarpıntısı, baş dönmesi ve baygınlık hissiyle ortaya çıkan, adını ünlü yazar Stendhal'den alan büyüleyici ve gizemli psikosomatik sendrom.</p>
           <a href="floransa-sendromu.html" class="article-cta">Sendromu Keşfet →</a>
+        </div>
+
+        <!-- CARD: THESEUS'UN GEMİSİ -->
+        <div class="article-card">
+          <div class="article-photo-frame">
+            <img src="Theseusun Gemisi.jpg" alt="Theseus'un Gemisi" class="article-photo"
+              onerror="this.style.background='linear-gradient(135deg,#3d9e7a,#1e5c47)';this.removeAttribute('src')" />
+          </div>
+          <h2 class="article-name">Theseus'un Gemisi</h2>
+          <p class="article-title">Varlık ve Değişim Paradoksu</p>
+          <p class="article-desc">Zamanla bütün parçaları tek tek yenilenen bir gemi hâlâ aynı gemi midir? Antik Yunan'dan Thomas Hobbes'a uzanan zamansız felsefi düşünce deneyi.</p>
+          <a href="theseusun-gemisi.html" class="article-cta">Paradoksu Keşfet →</a>
         </div>
 
       </div>
